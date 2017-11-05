@@ -1,0 +1,23 @@
+to include header or footer file
+
+<?php
+include("header.php");
+?>
+
+<?php
+include("footer.php");
+?>
+
+- .php file are only important and we will work on that. just ignore html files.
+
+03/21/2017
+List of working page
+index.php
+about.php
+calendar.php
+downtowndevelopment.php
+maps.php
+linkofinterest.php
+contact.php
+Detail.php
+addevent.php

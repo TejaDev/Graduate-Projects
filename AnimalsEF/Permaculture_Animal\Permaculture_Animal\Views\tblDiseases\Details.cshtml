@@ -1,0 +1,26 @@
+﻿@model Permaculture_Animal.Models.tblDisease
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblDisease</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DiseaseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiseaseName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DiseaseID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

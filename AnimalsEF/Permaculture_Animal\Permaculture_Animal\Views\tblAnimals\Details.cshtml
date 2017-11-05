@@ -1,0 +1,90 @@
+﻿@model Permaculture_Animal.Models.tblAnimal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblAnimal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalSex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalSex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeathDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeathDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FatherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FatherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MotherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MotherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblDisease.DiseaseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblDisease.DiseaseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblSpecy.SpeciesName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblSpecy.SpeciesName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AnimalID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

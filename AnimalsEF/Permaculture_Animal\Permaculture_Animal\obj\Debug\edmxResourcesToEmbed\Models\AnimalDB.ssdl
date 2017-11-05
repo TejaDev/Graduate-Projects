@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AnimalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblAnimal">
+    <Key>
+      <PropertyRef Name="AnimalID" />
+    </Key>
+    <Property Name="AnimalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnimalName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AnimalSex" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="DeathDate" Type="datetime" Nullable="false" />
+    <Property Name="BirthPlace" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MotherName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SpeciesID" Type="int" Nullable="false" />
+    <Property Name="DiseaseID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblBreed">
+    <Key>
+      <PropertyRef Name="BreedID" />
+    </Key>
+    <Property Name="BreedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BreedName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SpeciesID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblDisease">
+    <Key>
+      <PropertyRef Name="DiseaseID" />
+    </Key>
+    <Property Name="DiseaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DiseaseName" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblSpecies">
+    <Key>
+      <PropertyRef Name="SpeciesID" />
+    </Key>
+    <Property Name="SpeciesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpeciesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AnimalDB.dbo.vAnimal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vAnimal">
+    <Key>
+      <PropertyRef Name="AnimalID" />
+      <PropertyRef Name="AnimalName" />
+      <PropertyRef Name="AnimalSex" />
+      <PropertyRef Name="BirthDate" />
+      <PropertyRef Name="DeathDate" />
+      <PropertyRef Name="BirthPlace" />
+      <PropertyRef Name="FatherName" />
+      <PropertyRef Name="MotherName" />
+      <PropertyRef Name="SpeciesName" />
+      <PropertyRef Name="DiseaseName" />
+    </Key>
+    <Property Name="AnimalID" Type="int" Nullable="false" />
+    <Property Name="AnimalName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AnimalSex" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="DeathDate" Type="datetime" Nullable="false" />
+    <Property Name="BirthPlace" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MotherName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SpeciesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DiseaseName" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'AnimalDB.dbo.vBreed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vBreed">
+    <Key>
+      <PropertyRef Name="BreedID" />
+      <PropertyRef Name="BreedName" />
+      <PropertyRef Name="SpeciesName" />
+    </Key>
+    <Property Name="BreedID" Type="int" Nullable="false" />
+    <Property Name="BreedName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SpeciesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="Animal_Disease_fk3">
+    <End Role="tblDisease" Type="Self.tblDisease" Multiplicity="1" />
+    <End Role="tblAnimal" Type="Self.tblAnimal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDisease">
+        <PropertyRef Name="DiseaseID" />
+      </Principal>
+      <Dependent Role="tblAnimal">
+        <PropertyRef Name="DiseaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Animal_Species_fk2">
+    <End Role="tblSpecies" Type="Self.tblSpecies" Multiplicity="1" />
+    <End Role="tblAnimal" Type="Self.tblAnimal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSpecies">
+        <PropertyRef Name="SpeciesID" />
+      </Principal>
+      <Dependent Role="tblAnimal">
+        <PropertyRef Name="SpeciesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Breed_Species_fk">
+    <End Role="tblSpecies" Type="Self.tblSpecies" Multiplicity="1" />
+    <End Role="tblBreed" Type="Self.tblBreed" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSpecies">
+        <PropertyRef Name="SpeciesID" />
+      </Principal>
+      <Dependent Role="tblBreed">
+        <PropertyRef Name="SpeciesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="DELETETHEANIMAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ANIMALID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="DELETETHEBREED" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BREEDNAME" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="DELETETHEDISEASE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DISEASENAME" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DELETETHESPECIES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SPECIESNAME" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="INSERTINTOANIMAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ANIMALNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="ANIMALSEX" Type="nvarchar" Mode="In" />
+    <Parameter Name="BIRTHDATE" Type="datetime" Mode="In" />
+    <Parameter Name="DEATHDATE" Type="datetime" Mode="In" />
+    <Parameter Name="BIRTHPLACE" Type="nvarchar" Mode="In" />
+    <Parameter Name="FATHERNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="MOTHERNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="SPECIESID" Type="int" Mode="In" />
+    <Parameter Name="DISEASEID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="INSERTINTOBREED" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BREEDNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="SPECIESID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="INSERTINTODISEASE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DISEASENAME" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="INSERTINTOSPECIES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SPECIESNAME" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="UPDATETHEANIMAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ANIMALNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="ANIMALSEX" Type="nvarchar" Mode="In" />
+    <Parameter Name="BIRTHDATE" Type="datetime" Mode="In" />
+    <Parameter Name="DEATHDATE" Type="datetime" Mode="In" />
+    <Parameter Name="BIRTHPLACE" Type="nvarchar" Mode="In" />
+    <Parameter Name="FATHERNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="MOTHERNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="SPECIESID" Type="int" Mode="In" />
+    <Parameter Name="DISEASEID" Type="int" Mode="In" />
+    <Parameter Name="ANIMALID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UPDATETHEBREED" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BREEDNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="SPECIESID" Type="int" Mode="In" />
+    <Parameter Name="BREEDID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UPDATETHEDISEASE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DISEASENAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="DISEASEID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UPDATETHESPECIES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SPECIESNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="SPECIESID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="AnimalDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAnimal" EntityType="Self.tblAnimal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblBreed" EntityType="Self.tblBreed" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDisease" EntityType="Self.tblDisease" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSpecies" EntityType="Self.tblSpecies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vAnimal" EntityType="Self.vAnimal" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vAnimal].[AnimalID] AS [AnimalID], 
+    [vAnimal].[AnimalName] AS [AnimalName], 
+    [vAnimal].[AnimalSex] AS [AnimalSex], 
+    [vAnimal].[BirthDate] AS [BirthDate], 
+    [vAnimal].[DeathDate] AS [DeathDate], 
+    [vAnimal].[BirthPlace] AS [BirthPlace], 
+    [vAnimal].[FatherName] AS [FatherName], 
+    [vAnimal].[MotherName] AS [MotherName], 
+    [vAnimal].[SpeciesName] AS [SpeciesName], 
+    [vAnimal].[DiseaseName] AS [DiseaseName]
+    FROM [dbo].[vAnimal] AS [vAnimal]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vBreed" EntityType="Self.vBreed" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vBreed].[BreedID] AS [BreedID], 
+    [vBreed].[BreedName] AS [BreedName], 
+    [vBreed].[SpeciesName] AS [SpeciesName]
+    FROM [dbo].[vBreed] AS [vBreed]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="Animal_Disease_fk3" Association="Self.Animal_Disease_fk3">
+      <End Role="tblDisease" EntitySet="tblDisease" />
+      <End Role="tblAnimal" EntitySet="tblAnimal" />
+    </AssociationSet>
+    <AssociationSet Name="Animal_Species_fk2" Association="Self.Animal_Species_fk2">
+      <End Role="tblSpecies" EntitySet="tblSpecies" />
+      <End Role="tblAnimal" EntitySet="tblAnimal" />
+    </AssociationSet>
+    <AssociationSet Name="Breed_Species_fk" Association="Self.Breed_Species_fk">
+      <End Role="tblSpecies" EntitySet="tblSpecies" />
+      <End Role="tblBreed" EntitySet="tblBreed" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

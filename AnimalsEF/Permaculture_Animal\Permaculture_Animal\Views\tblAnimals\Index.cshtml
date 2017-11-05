@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Permaculture_Animal.Models.tblAnimal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>List Of Available Animals</h3>
+
+<p></p>
+<p></p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm("Index", "tblAnimals", FormMethod.Get))
+    {
+    <p>
+        Gender: @Html.DropDownList("Gender", "All")
+        Animal Name: @Html.TextBox("strSearch")
+        <input type="submit" value="SEARCH" />
+    </p>
+    }
+
+</p>
+    
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalSex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeathDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthPlace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FatherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MotherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblDisease.DiseaseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblSpecy.SpeciesName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnimalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnimalSex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeathDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthPlace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FatherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MotherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblDisease.DiseaseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblSpecy.SpeciesName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnimalID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AnimalID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AnimalID })
+        </td>
+    </tr>
+}
+
+</table>

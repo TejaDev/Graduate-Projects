@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Permaculture_Animal.Models.tblDisease>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>List of Diseases</h3>
+<p></p>
+<p>
+    @Html.ActionLink("Create New", "Create")
+    <p></p>
+    @using (Html.BeginForm("Index", "tblDiseases", FormMethod.Get))
+    {
+        <p>
+            Disease: @Html.TextBox("searchString")
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DiseaseName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiseaseName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DiseaseID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DiseaseID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DiseaseID })
+        </td>
+    </tr>
+}
+
+</table>

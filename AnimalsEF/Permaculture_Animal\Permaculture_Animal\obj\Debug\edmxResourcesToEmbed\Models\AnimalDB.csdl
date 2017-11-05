@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AnimalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblAnimal">
+    <Key>
+      <PropertyRef Name="AnimalID" />
+    </Key>
+    <Property Name="AnimalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnimalName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AnimalSex" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DeathDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BirthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SpeciesID" Type="Int32" Nullable="false" />
+    <Property Name="DiseaseID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblDisease" Relationship="Self.Animal_Disease_fk3" FromRole="tblAnimal" ToRole="tblDisease" />
+    <NavigationProperty Name="tblSpecy" Relationship="Self.Animal_Species_fk2" FromRole="tblAnimal" ToRole="tblSpecies" />
+  </EntityType>
+  <EntityType Name="tblBreed">
+    <Key>
+      <PropertyRef Name="BreedID" />
+    </Key>
+    <Property Name="BreedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BreedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SpeciesID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblSpecy" Relationship="Self.Breed_Species_fk" FromRole="tblBreed" ToRole="tblSpecies" />
+  </EntityType>
+  <EntityType Name="tblDisease">
+    <Key>
+      <PropertyRef Name="DiseaseID" />
+    </Key>
+    <Property Name="DiseaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiseaseName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblAnimals" Relationship="Self.Animal_Disease_fk3" FromRole="tblDisease" ToRole="tblAnimal" />
+  </EntityType>
+  <EntityType Name="tblSpecy">
+    <Key>
+      <PropertyRef Name="SpeciesID" />
+    </Key>
+    <Property Name="SpeciesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SpeciesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblAnimals" Relationship="Self.Animal_Species_fk2" FromRole="tblSpecies" ToRole="tblAnimal" />
+    <NavigationProperty Name="tblBreeds" Relationship="Self.Breed_Species_fk" FromRole="tblSpecies" ToRole="tblBreed" />
+  </EntityType>
+  <EntityType Name="vAnimal">
+    <Key>
+      <PropertyRef Name="AnimalID" />
+      <PropertyRef Name="AnimalName" />
+      <PropertyRef Name="AnimalSex" />
+      <PropertyRef Name="BirthDate" />
+      <PropertyRef Name="DeathDate" />
+      <PropertyRef Name="BirthPlace" />
+      <PropertyRef Name="FatherName" />
+      <PropertyRef Name="MotherName" />
+      <PropertyRef Name="SpeciesName" />
+      <PropertyRef Name="DiseaseName" />
+    </Key>
+    <Property Name="AnimalID" Type="Int32" Nullable="false" />
+    <Property Name="AnimalName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AnimalSex" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DeathDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BirthPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MotherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SpeciesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiseaseName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vBreed">
+    <Key>
+      <PropertyRef Name="BreedID" />
+      <PropertyRef Name="BreedName" />
+      <PropertyRef Name="SpeciesName" />
+    </Key>
+    <Property Name="BreedID" Type="Int32" Nullable="false" />
+    <Property Name="BreedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SpeciesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="Animal_Disease_fk3">
+    <End Role="tblDisease" Type="Self.tblDisease" Multiplicity="1" />
+    <End Role="tblAnimal" Type="Self.tblAnimal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDisease">
+        <PropertyRef Name="DiseaseID" />
+      </Principal>
+      <Dependent Role="tblAnimal">
+        <PropertyRef Name="DiseaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Animal_Species_fk2">
+    <End Role="tblSpecies" Type="Self.tblSpecy" Multiplicity="1" />
+    <End Role="tblAnimal" Type="Self.tblAnimal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSpecies">
+        <PropertyRef Name="SpeciesID" />
+      </Principal>
+      <Dependent Role="tblAnimal">
+        <PropertyRef Name="SpeciesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Breed_Species_fk">
+    <End Role="tblSpecies" Type="Self.tblSpecy" Multiplicity="1" />
+    <End Role="tblBreed" Type="Self.tblBreed" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSpecies">
+        <PropertyRef Name="SpeciesID" />
+      </Principal>
+      <Dependent Role="tblBreed">
+        <PropertyRef Name="SpeciesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AnimalDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tblAnimals" EntityType="Self.tblAnimal" />
+    <EntitySet Name="tblBreeds" EntityType="Self.tblBreed" />
+    <EntitySet Name="tblDiseases" EntityType="Self.tblDisease" />
+    <EntitySet Name="tblSpecies" EntityType="Self.tblSpecy" />
+    <EntitySet Name="vAnimals" EntityType="Self.vAnimal" />
+    <EntitySet Name="vBreeds" EntityType="Self.vBreed" />
+    <AssociationSet Name="Animal_Disease_fk3" Association="Self.Animal_Disease_fk3">
+      <End Role="tblDisease" EntitySet="tblDiseases" />
+      <End Role="tblAnimal" EntitySet="tblAnimals" />
+    </AssociationSet>
+    <AssociationSet Name="Animal_Species_fk2" Association="Self.Animal_Species_fk2">
+      <End Role="tblSpecies" EntitySet="tblSpecies" />
+      <End Role="tblAnimal" EntitySet="tblAnimals" />
+    </AssociationSet>
+    <AssociationSet Name="Breed_Species_fk" Association="Self.Breed_Species_fk">
+      <End Role="tblSpecies" EntitySet="tblSpecies" />
+      <End Role="tblBreed" EntitySet="tblBreeds" />
+    </AssociationSet>
+    <FunctionImport Name="DELETETHEANIMAL">
+      <Parameter Name="ANIMALID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DELETETHEBREED">
+      <Parameter Name="BREEDNAME" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DELETETHEDISEASE">
+      <Parameter Name="DISEASENAME" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DELETETHESPECIES">
+      <Parameter Name="SPECIESNAME" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="INSERTINTOANIMAL">
+      <Parameter Name="ANIMALNAME" Mode="In" Type="String" />
+      <Parameter Name="ANIMALSEX" Mode="In" Type="String" />
+      <Parameter Name="BIRTHDATE" Mode="In" Type="DateTime" />
+      <Parameter Name="DEATHDATE" Mode="In" Type="DateTime" />
+      <Parameter Name="BIRTHPLACE" Mode="In" Type="String" />
+      <Parameter Name="FATHERNAME" Mode="In" Type="String" />
+      <Parameter Name="MOTHERNAME" Mode="In" Type="String" />
+      <Parameter Name="SPECIESID" Mode="In" Type="Int32" />
+      <Parameter Name="DISEASEID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="INSERTINTOBREED">
+      <Parameter Name="BREEDNAME" Mode="In" Type="String" />
+      <Parameter Name="SPECIESID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="INSERTINTODISEASE">
+      <Parameter Name="DISEASENAME" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="INSERTINTOSPECIES">
+      <Parameter Name="SPECIESNAME" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(AnimalDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(AnimalDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="UPDATETHEANIMAL">
+      <Parameter Name="ANIMALNAME" Mode="In" Type="String" />
+      <Parameter Name="ANIMALSEX" Mode="In" Type="String" />
+      <Parameter Name="BIRTHDATE" Mode="In" Type="DateTime" />
+      <Parameter Name="DEATHDATE" Mode="In" Type="DateTime" />
+      <Parameter Name="BIRTHPLACE" Mode="In" Type="String" />
+      <Parameter Name="FATHERNAME" Mode="In" Type="String" />
+      <Parameter Name="MOTHERNAME" Mode="In" Type="String" />
+      <Parameter Name="SPECIESID" Mode="In" Type="Int32" />
+      <Parameter Name="DISEASEID" Mode="In" Type="Int32" />
+      <Parameter Name="ANIMALID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UPDATETHEBREED">
+      <Parameter Name="BREEDNAME" Mode="In" Type="String" />
+      <Parameter Name="SPECIESID" Mode="In" Type="Int32" />
+      <Parameter Name="BREEDID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UPDATETHEDISEASE">
+      <Parameter Name="DISEASENAME" Mode="In" Type="String" />
+      <Parameter Name="DISEASEID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UPDATETHESPECIES">
+      <Parameter Name="SPECIESNAME" Mode="In" Type="String" />
+      <Parameter Name="SPECIESID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
